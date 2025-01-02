@@ -17,3 +17,9 @@ atirni sajatokra - def data, addr, size..
 atirni sajatokra - num_t to_fixed, void to_uchar, #tbd
 # vp
 ok
+
+
+#Task
+1. Correct Soft::Gen() for option selection
+  //if (std::string(coefs) == "BASS") {
+  //  coeffsFile = {4, 3, 2, 0, 0, 0, 0, 0, 0, 0};
