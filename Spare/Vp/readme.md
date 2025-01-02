@@ -1,3 +1,8 @@
+#Task
+1. Correct Soft::Gen() for option selection
+  //if (std::string(coefs) == "BASS") {
+  //  coeffsFile = {4, 3, 2, 0, 0, 0, 0, 0, 0, 0};
+
 # bram_ctrl
 interconnect variacio, atnezni
 # bram
@@ -19,7 +24,4 @@ atirni sajatokra - num_t to_fixed, void to_uchar, #tbd
 ok
 
 
-#Task
-1. Correct Soft::Gen() for option selection
-  //if (std::string(coefs) == "BASS") {
-  //  coeffsFile = {4, 3, 2, 0, 0, 0, 0, 0, 0, 0};
+
