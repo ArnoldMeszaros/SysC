@@ -13,12 +13,21 @@ Soft::Soft(sc_core::sc_module_name name, char *coefs, char *samples)
   : sc_module(name)
   , offset(sc_core::SC_ZERO_TIME)
 {
-  coeffsFile.open(coefs);
+  // -------  ENYEM TBD-----------------------------------------------
+  //std::vector<num_t> coeffsFile(COEFFS_SIZE, 0);
+         // itt definialjuk a BASS, TREBLE valuekat 
+  //if (std::string(coefs) == "BASS") {
+  //  coeffsFile = {4, 3, 2, 0, 0, 0, 0, 0, 0, 0};
+  //} else if (std::string(coefs) == "TREBLE") {
+  //  coeffsFile = {0, 0, 0, 4, 4, 4, 4, 0, 0, 0};
+  //}
+  
+  //coeffsFile.open(coefs);
   samplesFile.open(samples);
   std::cout<<"arg1: "<<coefs<<std::endl;
   std::cout<<"arg2: "<<samples<<std::endl;
 
-  //Dodato ----
+  //Dodato iz main ----
   AudioFile<double> audioFile;              // audiFile (vector)
   vector<complex<double>> audioFileComplex;
   vector<complex<double>> transform;
@@ -72,25 +81,13 @@ Soft::Soft(sc_core::sc_module_name name, char *coefs, char *samples)
 	  getline(samplesFile, line);
 	  count++;
 	}
-      
+    std::cout<<"count: "<<count<<std::endl;
     }
   
   samplesFile.seekg(0, ios::beg);
   thr = 0; 
   SC_THREAD(gen);
   SC_REPORT_INFO("Soft", "Constructed.");
-
-  //size_t oldSize;
-  //size_t newSize;
-  //float sampleRate;
-
-  //oldSize = samplesFile.getNumSamplesPerChannel(); // save original size
-  //sampleRate = samplesFile.getSampleRate();
-
-  //std::cout<<"oldSize: "<<oldSize<<std::endl;
-  //std::cout<<"arg2: "<<sampleRate<<std::endl;
-
-
 
 }
 
@@ -111,7 +108,7 @@ int resize(int samples)
 
 Soft::~Soft()
 {
-  coeffsFile.close();
+  //coeffsFile.close(); -Nem kell
   samplesFile.close();
  
   SC_REPORT_INFO("Soft", "Destroyed.");
@@ -129,8 +126,35 @@ void Soft::gen()
   for (int i = 0; i<COEFFS_SIZE; ++i) 
   {
     coeffsFile >> write_val;
+    //coeffs >> write_val;
     write_bram(i, write_val,1);
+    //std::cout<<"coeff: "<<coeffsFile<<std::endl;
+
   }
+  // ---------- ENYEM TBD---------------------------- 
+  
+  // Ugy fog mukodni ahogy a fenti kommentben van
+  // Definialni kell hozza fent a 16line-on a coeffs ertekeket
+  //num_t write_val, read_val;
+  //int t = 0;
+  
+  //int num =(int) std::ceil(count / BLOCK_SIZE);
+  
+  //std::cout<<"Number of blocks: "<<num<<std::endl;
+
+  // Determine coefficients based on arg1
+  //std::vector<num_t> coeffs(COEFFS_SIZE, 0); // Initialize with zeros
+  //if (std::string(coefs) == "BASS") {
+  //  coeffs = {4, 3, 2, 0, 0, 0, 0, 0, 0, 0};
+  //} else if (std::string(coefs) == "TREBLE") {
+  //  coeffs = {0, 0, 0, 4, 4, 4, 4, 0, 0, 0};
+  //}
+
+  //for (int i = 0; i < COEFFS_SIZE; ++i) {
+  // write_bram(i, coeffs[i], 1);
+  //}
+  // ---------------------------------------
+  
   
   std::cout<<"Coeffs written to BRAM. "<<std::endl;
   //wait (21*10.8,sc_core::SC_NS);  
