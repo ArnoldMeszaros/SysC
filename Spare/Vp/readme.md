@@ -1,5 +1,5 @@
-#Task
-1. Correct Soft::Gen() for option selection
+**# Task**
+1. Correct Soft.cpp/Soft::Gen() for option selection
   //if (std::string(coefs) == "BASS") {
   //  coeffsFile = {4, 3, 2, 0, 0, 0, 0, 0, 0, 0};
 
